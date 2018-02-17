@@ -25,18 +25,29 @@ void ARealTankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	AimTowardsCrosshair();
+}
+
+ATank* ARealTankPlayerController::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn()); /// allows us to use methods inside ATank - Also allows us to quickly reference it above
 }
 
 void ARealTankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()){ return; }
 
-	// Get world location through a linetrace from crosshair
-	// If it hits the landscape
-		// Tell controlled tank to aim at this point
+	FVector HitLocation; // Out parameter
+	if (GetSightRayHitLocation(HitLocation)) // Has side effect, going to line trace
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		// TODO Tell controlled tank to aim at this point'
+	}
 }
 
-ATank* ARealTankPlayerController::GetControlledTank() const
+// Get world location through a linetrace from crosshair, true if it hits landscape
+bool ARealTankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
-	return Cast<ATank>(GetPawn()); /// allows us to use methods inside ATank - Also allows us to quickly reference it above
+	OutHitLocation = FVector(1.0); // Going to return a vector that gives 1,1,1 because it is a pointer - Can change it because it is a reference pointer
+	return true;
 }
