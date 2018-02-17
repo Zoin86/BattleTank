@@ -19,9 +19,11 @@ class BATTLETANKS_API ARealTankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
-
-	ATank* GetControlledTank() const;
-
 	void BeginPlay() override;
-	
+
+	void Tick(float DeltaTime) override;
+
+
+private:
+	ATank * GetControlledTank() const;
 };

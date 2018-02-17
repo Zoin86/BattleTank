@@ -20,6 +20,15 @@ void ARealTankPlayerController::BeginPlay()
 	}
 }
 
+// Called every frame
+void ARealTankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	UE_LOG(LogTemp, Warning, TEXT("Tick is working!"))
+
+}
+
 ATank* ARealTankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn()); /// allows us to use methods inside ATank - Also allows us to quickly reference it above
