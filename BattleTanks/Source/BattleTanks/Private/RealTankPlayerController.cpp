@@ -27,6 +27,15 @@ void ARealTankPlayerController::Tick(float DeltaTime)
 
 }
 
+void ARealTankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank()){ return; }
+
+	// Get world location through a linetrace from crosshair
+	// If it hits the landscape
+		// Tell controlled tank to aim at this point
+}
+
 ATank* ARealTankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn()); /// allows us to use methods inside ATank - Also allows us to quickly reference it above
