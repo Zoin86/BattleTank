@@ -22,7 +22,7 @@ class BATTLETANKS_API ATankAIController : public AAIController
 	
 
 public:
-	void BeginPlay() override; // BeginPlay() has to stay public if we want to keep inheriting from this class
+	virtual void BeginPlay() override; // BeginPlay() has to stay public if we want to keep inheriting from this class
 
 
 private:

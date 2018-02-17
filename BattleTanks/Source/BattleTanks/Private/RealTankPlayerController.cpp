@@ -25,8 +25,6 @@ void ARealTankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	UE_LOG(LogTemp, Warning, TEXT("Tick is working!"))
-
 }
 
 ATank* ARealTankPlayerController::GetControlledTank() const
