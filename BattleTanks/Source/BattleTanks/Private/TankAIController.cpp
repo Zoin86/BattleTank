@@ -33,6 +33,22 @@ void ATankAIController::BeginPlay()
 
 }
 
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank())
+	{
+		// TODO move towards the player
+
+		// Aim at the player
+		GetAIControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+
+		// fire if ready
+		
+	}
+}
+	
+
 ATank* ATankAIController::GetAIControlledTank() const
 {
 	return Cast<ATank>(GetPawn()); /// allows us to use methods inside ATank - Also allows us to quickly reference it above

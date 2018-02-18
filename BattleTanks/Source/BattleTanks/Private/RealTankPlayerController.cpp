@@ -40,8 +40,7 @@ void ARealTankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has side effect, going to line trace
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
-		// TODO Tell controlled tank to aim at this point'
+		GetControlledTank()->AimAt(HitLocation); /// This can be used as we have included "Tank.h" in the header file
 	}
 }
 

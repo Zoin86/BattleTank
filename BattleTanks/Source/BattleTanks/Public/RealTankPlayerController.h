@@ -23,8 +23,6 @@ class BATTLETANKS_API ARealTankPlayerController : public APlayerController
 public:
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
-
 	// Start the tank moving the barrel so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
 
@@ -32,6 +30,8 @@ public:
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
 private:
+	virtual void Tick(float DeltaTime) override;
+
 	ATank * GetControlledTank() const;
 
 	UPROPERTY(EditAnywhere)
@@ -39,7 +39,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrossHairYLocation = 0.33333f;
 	UPROPERTY(EditAnywhere, Category = "Look Range")
-		float LineTraceRange = 100000.0f;
+	float LineTraceRange = 100000.0f;
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetLookVectorHitLocation(FVector& LookDirection,  FVector& HitLocation) const;

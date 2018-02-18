@@ -24,9 +24,11 @@ class BATTLETANKS_API ATankAIController : public AAIController
 public:
 	virtual void BeginPlay() override; // BeginPlay() has to stay public if we want to keep inheriting from this class
 
+	virtual void Tick(float DeltaTime) override;
 
 private:
 	
+
 	ATank* GetAIControlledTank() const; // remember getters can be constants as they dont need to change anything
 
 	ATank* GetPlayerTank() const; 
