@@ -40,7 +40,7 @@ void ARealTankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has side effect, going to line trace
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
 		// TODO Tell controlled tank to aim at this point'
 	}
 }
@@ -48,6 +48,19 @@ void ARealTankPlayerController::AimTowardsCrosshair()
 // Get world location through a linetrace from crosshair, true if it hits landscape
 bool ARealTankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
-	OutHitLocation = FVector(1.0); // Going to return a vector that gives 1,1,1 because it is a pointer - Can change it because it is a reference pointer
+	//OutHitLocation = FVector(1.0); // Going to return a vector that gives 1,1,1 because it is a pointer - The variable can change because it is a reference pointer.
+
+	// Find crosshair position
+	int32 ViewPortSizeX, ViewPortSizeY;
+	GetViewportSize(ViewPortSizeX, ViewPortSizeY); // Finds game window size
+	
+	/// This is a struct - Sets ScreenLocations UI paremeters as to where the UI aiming dot should be.
+	// Equation takes the Viewport size and multiplies it with the percentage of where the UI element which returns the value of amount of pixels in the UI element is!
+	auto ScreenLocation = FVector2D(ViewPortSizeX * CrossHairXLocation, ViewPortSizeY * CrossHairYLocation); 
+	UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
+
+	// "De-project" the screen position of the crosshair to a world direction
+
+	// Line-trace through that look direction, and see what we hit (up to a maximum range)
 	return true;
 }
