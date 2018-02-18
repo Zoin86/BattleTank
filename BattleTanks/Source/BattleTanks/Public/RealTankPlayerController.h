@@ -7,12 +7,14 @@
 #include "Public/UObject/Class.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 #include "Tank.h"
 #include "RealTankPlayerController.generated.h" // Generated files must be the last include
 
 /**
  * 
  */
+
 UCLASS()
 class BATTLETANKS_API ARealTankPlayerController : public APlayerController
 {
@@ -29,7 +31,6 @@ public:
 	// Return Out Paremeter, true if it hits the landscape
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
-
 private:
 	ATank * GetControlledTank() const;
 
@@ -37,5 +38,9 @@ private:
 	float CrossHairXLocation = 0.5f;
 	UPROPERTY(EditAnywhere)
 	float CrossHairYLocation = 0.33333f;
+	UPROPERTY(EditAnywhere, Category = "Look Range")
+		float LineTraceRange = 100000.0f;
 
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+	bool GetLookVectorHitLocation(FVector& LookDirection,  FVector& HitLocation) const;
 };

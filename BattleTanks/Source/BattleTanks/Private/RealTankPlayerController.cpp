@@ -40,7 +40,7 @@ void ARealTankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // Out parameter
 	if (GetSightRayHitLocation(HitLocation)) // Has side effect, going to line trace
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"), *HitLocation.ToString());
 		// TODO Tell controlled tank to aim at this point'
 	}
 }
@@ -50,17 +50,43 @@ bool ARealTankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) 
 {
 	//OutHitLocation = FVector(1.0); // Going to return a vector that gives 1,1,1 because it is a pointer - The variable can change because it is a reference pointer.
 
-	// Find crosshair position
+	// Find crosshair position in pixel coordinates
 	int32 ViewPortSizeX, ViewPortSizeY;
-	GetViewportSize(ViewPortSizeX, ViewPortSizeY); // Finds game window size
-	
-	/// This is a struct - Sets ScreenLocations UI paremeters as to where the UI aiming dot should be.
-	// Equation takes the Viewport size and multiplies it with the percentage of where the UI element which returns the value of amount of pixels in the UI element is!
+	GetViewportSize(ViewPortSizeX, ViewPortSizeY); /// Finds game window size
+
 	auto ScreenLocation = FVector2D(ViewPortSizeX * CrossHairXLocation, ViewPortSizeY * CrossHairYLocation); 
-	UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
 
 	// "De-project" the screen position of the crosshair to a world direction
-
-	// Line-trace through that look direction, and see what we hit (up to a maximum range)
+	FVector LookDirection; /// value is being set by the GetLookDirection method since its using the "FVector& LookDirection"
+	if (GetLookDirection(ScreenLocation, LookDirection))
+	{
+		// Line-trace through that look direction, and see what we hit (up to a maximum range)
+		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+	}
+	
 	return true;
 }
+
+bool ARealTankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector CameraWorldLocation; /// this is to be ignored - though we need to pass it into the DeprojectScreenPositionToWorld() so it needs to be here.
+
+	DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection);
+	return true;
+}
+
+bool ARealTankPlayerController::GetLookVectorHitLocation(FVector& LookDirection, FVector& OutHitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility))
+	{
+		OutHitLocation = HitResult.Location;
+		return true;
+	}
+	OutHitLocation = FVector(0.0f);
+	return false;
+}
+
