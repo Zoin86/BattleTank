@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankBarrel.h" /// Has to be included because of the forward declaration - for using the methods below in this file
 #include "TankAimingComponent.h"
 
 
@@ -13,7 +14,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -44,7 +45,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	FVector StartLocation = Barrel->GetSocketLocation(FName ("Projectile")); /// Barrel is a static mesh component so "Components/StaticMeshComponent.h" needs to be included
 
 						/// UGameplayStatics because its a 'static' method - Check unreal docs to see whether a method might be static or not
-	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace, FCollisionResponseParams::DefaultResponseParam,TArray<AActor*>(), true);
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace, FCollisionResponseParams::DefaultResponseParam,TArray<AActor*>(), false);
 											   /// |-------Just using this to get to the debugger -----------------|
 	if (bHaveAimSolution) 	
 	{
@@ -62,7 +63,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *DeltaRotator.ToString())
 
-	// Move Barrel the right amount this frame
-
-	// Given a max elevation speed and a frame target
+		Barrel->Elevate(5); //TODO Remove magic number
 }
