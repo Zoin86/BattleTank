@@ -60,7 +60,7 @@ bool ARealTankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) 
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		// Line-trace through that look direction, and see what we hit (up to a maximum range)
-		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 	
 	return true;

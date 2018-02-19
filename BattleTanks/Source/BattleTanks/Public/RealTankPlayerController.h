@@ -32,7 +32,7 @@ public:
 private:
 	virtual void Tick(float DeltaTime) override;
 
-	ATank * GetControlledTank() const;
+	ATank* GetControlledTank() const;
 
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5f;
