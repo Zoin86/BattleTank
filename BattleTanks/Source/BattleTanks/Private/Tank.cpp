@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Public/Tank.h"
+#include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -41,8 +43,9 @@ void ATank::AimAt(FVector HitLocation)
 }
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) /// This is set in blueprint
-{
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
+{ 
+	TankAimingComponent->SetBarrelReference(BarrelToSet); /// This passes the barrel down to the aiming component!
+	Barrel = BarrelToSet; /// This is for our local barrel reference for the projectile
 }
 
 void ATank::SetTurretReference(UTankTurret * TurretToSet)
@@ -52,6 +55,11 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet)
 
 void ATank::Fire()
 {
+	if (!Barrel){return;}
+	
+	// spawn a projectile at the projectile socket of the barrel
+	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketTransform(FName ("Projectile")));
+
 	auto Time = GetWorld()->GetTimeSeconds();
 	UE_LOG(LogTemp, Warning, TEXT("Time: %f - FIRE!"), Time)
 }
