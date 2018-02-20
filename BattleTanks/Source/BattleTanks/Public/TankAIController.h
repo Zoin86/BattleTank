@@ -8,13 +8,16 @@
 #include "Public/UObject/Class.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
-#include "Tank.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
 /**
  * 
  */
+
+// Forward Declaration
+class ATank;
+
 UCLASS()
 class BATTLETANKS_API ATankAIController : public AAIController
 {

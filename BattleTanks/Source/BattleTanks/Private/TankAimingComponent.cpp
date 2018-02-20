@@ -1,9 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "TankBarrel.h"/// Has to be included because of the forward declaration - for using the methods below in this file
 #include "TankAimingComponent.h"
-
-
+#include "TankBarrel.h"/// Has to be included because of the forward declaration - for using the methods below in this file
+					   ///  - Furthermore the CCP files name associated member header file has to be the first included header file
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -46,8 +45,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	FVector StartLocation = Barrel->GetSocketLocation(FName ("Projectile")); /// Barrel is a static mesh component so "Components/StaticMeshComponent.h" needs to be included
 
 						/// UGameplayStatics because its a 'static' method - Check unreal docs to see whether a method might be static or not
-	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace, FCollisionResponseParams::DefaultResponseParam,TArray<AActor*>(), false);
-											   /// |-------Just using this to get to the debugger -----------------|
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0.0f, 0.0f, ESuggestProjVelocityTraceOption::DoNotTrace, FCollisionResponseParams::DefaultResponseParam,TArray<AActor*>(), true);
+		///DoNotTrace needs to be there to prevent bug |----- Just using this to get to the debugger -----------------|
+	
 	if (bHaveAimSolution) 	
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();

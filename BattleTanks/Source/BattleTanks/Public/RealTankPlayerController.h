@@ -8,12 +8,14 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
-#include "Tank.h"
 #include "RealTankPlayerController.generated.h" // Generated files must be the last include
 
 /**
  * 
  */
+
+ /// Forward Declaration
+class ATank;
 
 UCLASS()
 class BATTLETANKS_API ARealTankPlayerController : public APlayerController
