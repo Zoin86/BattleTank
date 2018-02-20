@@ -15,7 +15,7 @@ void ARealTankPlayerController::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController is possessing: %s"), *ControlledTank->GetName()); /// this gets the possed pawn
+		UE_LOG(LogTemp, Warning, TEXT("PlayerController is possessing: %s"), *ControlledTank->GetName()); 
 		return;
 	}
 }
