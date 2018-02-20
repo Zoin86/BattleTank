@@ -10,7 +10,9 @@
 /**
  * 
  */
-/// (meta = (BlueprintSpawnableComponent) lets us use this component in blueprints - meta = (BlueprintSpawnableComponent), hidecategories = ("StringName")) allows one to hide categories in the editor
+/// (meta = (BlueprintSpawnableComponent)) lets us add this (a static mesh in our case) under "Add Components" in blueprints
+/// (meta = (BlueprintSpawnableComponent), hidecategories = ("StringName")) allows one to hide categories in the editor
+
 UCLASS(meta = (BlueprintSpawnableComponent)) 
 class BATTLETANKS_API UTankBarrel : public UStaticMeshComponent
 {
@@ -21,7 +23,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = ElevationSetup)
-		float MaxDegreesPerSecond = 20.0f;
+		float MaxDegreesPerSecond = 5.0f;
 	UPROPERTY(EditAnywhere, Category = ElevationSetup)
 		float MaxElevationDegrees = 35.f;
 	UPROPERTY(EditAnywhere, Category = ElevationSetup)

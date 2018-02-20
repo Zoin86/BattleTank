@@ -12,6 +12,7 @@
 
 /// This is a forward Declaration
 class UTankBarrel; 
+class UTankTurret;
 
 // Holds Barrel properties
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -35,9 +36,14 @@ public:
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
+	void SetTurretReference(UTankTurret* TurretToSet);
+
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
+
+	void RotateTurretTowards(FVector AimDirection);
 	
 };
