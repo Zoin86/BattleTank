@@ -31,12 +31,5 @@ public:
 
 private:
 	
-
-	ATank* GetAIControlledTank() const; // remember getters can be constants as they dont need to change anything
-
-	ATank* GetPlayerTank() const; 
-
-
-	
 	
 };
