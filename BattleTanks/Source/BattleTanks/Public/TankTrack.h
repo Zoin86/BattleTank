@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/World.h"
 #include "TankTrack.generated.h"
 
 /**
@@ -18,5 +19,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void SetThrottle(float Throttle);
 	
-	
+	// Max for per track in newtons
+	UPROPERTY(EditAnywhere, Category = Setup)
+	float TrackMaxDrivingForce = 40000000.f; // 40ton Tank at 10m/s^2 - also 40 million equals that of 400.000 newtons
 };

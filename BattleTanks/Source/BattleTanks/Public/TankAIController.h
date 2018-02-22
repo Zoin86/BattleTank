@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CoreMinimal.h"
 #include "BattleTanks.h"
 #include "Public/UObject/Class.h"
 #include "GameFramework/Actor.h"
