@@ -19,6 +19,12 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-		
+	// TODO Prevent extra speed from pressing extra speed buttons.
 	UE_LOG(LogTemp, Warning, TEXT("Intend Move Forward Throw: %f"), Throw)
+}
+
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
 }
