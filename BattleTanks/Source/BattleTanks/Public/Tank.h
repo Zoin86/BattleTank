@@ -61,7 +61,6 @@ private:
 
 	double LastFireTime = 0;
 	
-	
 	// Local barrel Reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 	
